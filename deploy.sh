@@ -43,7 +43,6 @@ apt-get -y upgrade
 apt-get install -y software-properties-common curl
 
 apt-add-repository ppa:nginx/development -y
-apt-add-repository ppa:chris-lea/redis-server -y
 apt-add-repository ppa:ondrej/php -y
 
 # gpg: key 5072E1F5: public key "MySQL Release Engineering <mysql-build@oss.oracle.com>" imported
@@ -142,11 +141,6 @@ sed -i "s/;listen\.mode.*/listen.mode = 0666/" /etc/php/7.0/fpm/pool.d/www.conf
 service nginx restart
 service php7.0-fpm restart
 
-# Install Node
-
-apt-get install -y nodejs
-/usr/bin/npm install -g gulp
-/usr/bin/npm install -g bower
 
 # Install SQLite
 
@@ -174,12 +168,7 @@ mysql_tzinfo_to_sql /usr/share/zoneinfo | mysql --user=root --password=${MYSQL_R
 
 # Install A Few Other Things
 
-apt-get install -y redis-server memcached beanstalkd
-
-# Configure Beanstalkd
-
-sed -i "s/#START=yes/START=yes/" /etc/default/beanstalkd
-/etc/init.d/beanstalkd start
+apt-get install -y memcached
 
 # Enable Swap Memory
 
